@@ -1,0 +1,24 @@
+{
+  "name": "api-contract-postman-ci",
+  "version": "1.0.0",
+  "description": "API tests + contract validation (schema) + mock endpoint using Postman/Newman in CI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthurrmoroni/api-contract-postman-ci.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/arthurrmoroni/api-contract-postman-ci/issues"
+  },
+  "homepage": "https://github.com/arthurrmoroni/api-contract-postman-ci#readme",
+  "devDependencies": {
+    "newman": "^6.2.2"
+  }
+}
