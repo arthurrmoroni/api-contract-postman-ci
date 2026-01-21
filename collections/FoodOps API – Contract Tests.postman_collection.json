@@ -1,0 +1,137 @@
+{
+  "info": {
+    "_postman_id": "1a3eb79a-6c87-409b-a111-18533737aebf",
+    "name": "FoodOps API – Contract Tests",
+    "description": "API testing and contract validation collection for a food management system.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51670833",
+    "_collection_link": "https://go.postman.co/collection/51670833-1a3eb79a-6c87-409b-a111-18533737aebf?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get Product by Barcode",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"status 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "",
+              "pm.test(\"contract: response has product object\", function () {",
+              "  pm.expect(body).to.have.property(\"product\");",
+              "});",
+              "",
+              "pm.test(\"contract: product has key fields\", function () {",
+              "  const p = body.product;",
+              "  pm.expect(p).to.have.property(\"product_name\");",
+              "  pm.expect(p).to.have.property(\"brands\");",
+              "  pm.expect(p).to.have.property(\"categories\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v0/product/737628064502.json",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v0",
+            "product",
+            "737628064502.json"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Products (Catalog)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"status 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"response time < 1500ms\", function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "",
+              "pm.test(\"contract: has products array\", function () {",
+              "  pm.expect(body).to.have.property(\"products\");",
+              "  pm.expect(body.products).to.be.an(\"array\");",
+              "});",
+              "",
+              "pm.test(\"contract: returns at least one product\", function () {",
+              "  pm.expect(body.products.length).to.be.above(0);",
+              "});",
+              "",
+              "pm.test(\"contract: first product has key fields\", function () {",
+              "  const p = body.products[0];",
+              "  pm.expect(p).to.have.property(\"product_name\");",
+              "  pm.expect(p).to.have.property(\"brands\");",
+              "  pm.expect(p).to.have.property(\"categories\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cgi/search.pl?search_terms=cola&search_simple=1&action=process&json=1&page_size=5",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cgi",
+            "search.pl"
+          ],
+          "query": [
+            {
+              "key": "search_terms",
+              "value": "cola"
+            },
+            {
+              "key": "search_simple",
+              "value": "1"
+            },
+            {
+              "key": "action",
+              "value": "process"
+            },
+            {
+              "key": "json",
+              "value": "1"
+            },
+            {
+              "key": "page_size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
